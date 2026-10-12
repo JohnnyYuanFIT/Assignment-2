@@ -1,0 +1,292 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 2 (streamgraph): monthly hours watched on Twitch for eight focus games, Jan 2016 to Sep 2024.",
+  "width": 720,
+  "height": 320,
+  "data": {
+    "url": "data/twitch_monthly_focus_games.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.hours_watched / 1000000",
+      "as": "hours_m"
+    },
+    {
+      "calculate": "indexof(['MapleStory', 'World of Warcraft', 'Dota 2', 'League of Legends', 'Teamfight Tactics', 'VALORANT', 'Counter-Strike', 'Mobile Legends: Bang Bang'], datum.game)",
+      "as": "stack_order"
+    }
+  ],
+  "layer": [
+    {
+      "params": [
+        {
+          "name": "pick_game",
+          "select": {
+            "type": "point",
+            "fields": [
+              "game"
+            ]
+          },
+          "bind": "legend"
+        }
+      ],
+      "mark": {
+        "type": "area",
+        "interpolate": "monotone"
+      },
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal",
+          "title": null,
+          "axis": {
+            "format": "%Y",
+            "tickCount": "year",
+            "grid": false,
+            "domain": false
+          }
+        },
+        "y": {
+          "field": "hours_m",
+          "type": "quantitative",
+          "stack": "center",
+          "axis": null
+        },
+        "color": {
+          "field": "game",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "League of Legends",
+              "Teamfight Tactics",
+              "VALORANT",
+              "Counter-Strike",
+              "Dota 2",
+              "World of Warcraft",
+              "MapleStory",
+              "Mobile Legends: Bang Bang"
+            ],
+            "range": [
+              "#1F6F78",
+              "#7FB7BE",
+              "#D1495B",
+              "#EDAE49",
+              "#8C2F39",
+              "#3D5A80",
+              "#F28F3B",
+              "#6A4C93"
+            ]
+          },
+          "legend": {
+            "title": "Click a game to highlight it",
+            "orient": "top",
+            "columns": 4,
+            "labelLimit": 220,
+            "titleLimit": 400,
+            "symbolType": "square"
+          }
+        },
+        "order": {
+          "field": "stack_order"
+        },
+        "opacity": {
+          "condition": {
+            "param": "pick_game",
+            "empty": true,
+            "value": 0.95
+          },
+          "value": 0.15
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "date": "2020-04-01",
+            "line1": "Valorant beta: access keys",
+            "line2": "given to Twitch viewers"
+          },
+          {
+            "date": "2023-09-01",
+            "line1": "CS:GO is replaced",
+            "line2": "by Counter-Strike 2"
+          }
+        ]
+      },
+      "layer": [
+        {
+          "mark": {
+            "type": "rule",
+            "strokeDash": [
+              4,
+              4
+            ],
+            "color": "#555555"
+          },
+          "encoding": {
+            "x": {
+              "field": "date",
+              "type": "temporal"
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "top",
+            "dx": 5,
+            "fontSize": 11,
+            "color": "#333333"
+          },
+          "encoding": {
+            "x": {
+              "field": "date",
+              "type": "temporal"
+            },
+            "y": {
+              "value": 2
+            },
+            "text": {
+              "field": "line1"
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "top",
+            "dx": 5,
+            "dy": 14,
+            "fontSize": 11,
+            "color": "#333333"
+          },
+          "encoding": {
+            "x": {
+              "field": "date",
+              "type": "temporal"
+            },
+            "y": {
+              "value": 2
+            },
+            "text": {
+              "field": "line2"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "transform": [
+        {
+          "pivot": "game",
+          "value": "hours_m",
+          "groupby": [
+            "date"
+          ]
+        }
+      ],
+      "params": [
+        {
+          "name": "hover_month",
+          "select": {
+            "type": "point",
+            "fields": [
+              "date"
+            ],
+            "nearest": true,
+            "on": "mouseover",
+            "clear": "mouseout"
+          }
+        }
+      ],
+      "mark": {
+        "type": "rule",
+        "color": "#222222",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal"
+        },
+        "opacity": {
+          "condition": {
+            "param": "hover_month",
+            "empty": false,
+            "value": 0.8
+          },
+          "value": 0
+        },
+        "tooltip": [
+          {
+            "field": "date",
+            "type": "temporal",
+            "title": "Month",
+            "format": "%B %Y"
+          },
+          {
+            "field": "League of Legends",
+            "type": "quantitative",
+            "title": "League of Legends (M hrs)",
+            "format": ".1f"
+          },
+          {
+            "field": "VALORANT",
+            "type": "quantitative",
+            "title": "VALORANT (M hrs)",
+            "format": ".1f"
+          },
+          {
+            "field": "Counter-Strike",
+            "type": "quantitative",
+            "title": "Counter-Strike (M hrs)",
+            "format": ".1f"
+          },
+          {
+            "field": "Dota 2",
+            "type": "quantitative",
+            "title": "Dota 2 (M hrs)",
+            "format": ".1f"
+          },
+          {
+            "field": "Teamfight Tactics",
+            "type": "quantitative",
+            "title": "Teamfight Tactics (M hrs)",
+            "format": ".1f"
+          },
+          {
+            "field": "World of Warcraft",
+            "type": "quantitative",
+            "title": "World of Warcraft (M hrs)",
+            "format": ".1f"
+          },
+          {
+            "field": "MapleStory",
+            "type": "quantitative",
+            "title": "MapleStory (M hrs)",
+            "format": ".1f"
+          },
+          {
+            "field": "Mobile Legends: Bang Bang",
+            "type": "quantitative",
+            "title": "MLBB (M hrs)",
+            "format": ".1f"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Segoe UI, Helvetica, Arial, sans-serif",
+    "axis": {
+      "labelFontSize": 11,
+      "labelColor": "#555555"
+    }
+  }
+}

@@ -1,0 +1,91 @@
+year,game,prize_usd,tournaments,partial_year
+2010,All esports,6397081.61,1015,False
+2011,All esports,10731171.89,1714,False
+2012,All esports,14690420.27,2047,False
+2013,All esports,23002031.94,2361,False
+2014,All esports,38344018.95,3192,False
+2015,All esports,68317634.84,5322,False
+2016,All esports,100894301.32,4945,False
+2017,All esports,121623257.42,5162,False
+2018,All esports,174125620.16,5132,False
+2019,All esports,258073465.09,6425,False
+2020,All esports,152615009.17,6225,False
+2021,All esports,261756913.35,6479,False
+2022,All esports,260194962.94,6093,False
+2023,All esports,232250302.87,5016,False
+2024,All esports,146261415.21,2654,True
+2012,Counter-Strike,222538.77,48,False
+2013,Counter-Strike,1219039.13,200,False
+2014,Counter-Strike,1962515.01,279,False
+2015,Counter-Strike,6297500.42,721,False
+2016,Counter-Strike,17268045.48,863,False
+2017,Counter-Strike,19295990.9,915,False
+2018,Counter-Strike,23319746.08,1024,False
+2019,Counter-Strike,22302043.71,955,False
+2020,Counter-Strike,16088293.07,630,False
+2021,Counter-Strike,21854853.46,568,False
+2022,Counter-Strike,17502409.65,535,False
+2023,Counter-Strike,21072634.51,486,False
+2024,Counter-Strike,15297448.13,243,True
+2011,Dota 2,1672768.08,7,False
+2012,Dota 2,2087094.85,96,False
+2013,Dota 2,4548280.98,134,False
+2014,Dota 2,16608180.59,150,False
+2015,Dota 2,31036820.46,227,False
+2016,Dota 2,37464037.33,153,False
+2017,Dota 2,38074599.32,167,False
+2018,Dota 2,41545790.86,182,False
+2019,Dota 2,47108906.81,234,False
+2020,Dota 2,10126576.47,174,False
+2021,Dota 2,47964064.37,100,False
+2022,Dota 2,32954188.52,125,False
+2023,Dota 2,30797380.35,124,False
+2024,Dota 2,18622474.43,64,True
+2010,League of Legends,27942.64,23,False
+2011,League of Legends,527994.51,172,False
+2012,League of Legends,4287337.11,391,False
+2013,League of Legends,6244806.98,376,False
+2014,League of Legends,8084767.21,429,False
+2015,League of Legends,7746984.89,312,False
+2016,League of Legends,10519032.01,182,False
+2017,League of Legends,12261870.43,193,False
+2018,League of Legends,14689124.99,195,False
+2019,League of Legends,10412069.35,210,False
+2020,League of Legends,8767906.04,123,False
+2021,League of Legends,8421299.16,110,False
+2022,League of Legends,8219427.98,102,False
+2023,League of Legends,7730434.4,115,False
+2024,League of Legends,5655026.93,67,True
+2017,Mobile Legends: Bang Bang,100000.0,1,False
+2018,Mobile Legends: Bang Bang,653205.23,9,False
+2019,Mobile Legends: Bang Bang,1397507.01,15,False
+2020,Mobile Legends: Bang Bang,1073666.68,13,False
+2021,Mobile Legends: Bang Bang,2517241.22,28,False
+2022,Mobile Legends: Bang Bang,2173278.53,41,False
+2023,Mobile Legends: Bang Bang,4286794.6,41,False
+2024,Mobile Legends: Bang Bang,4817758.6,7,True
+2019,Teamfight Tactics,457684.65,12,False
+2020,Teamfight Tactics,480791.5,10,False
+2021,Teamfight Tactics,1348627.47,23,False
+2022,Teamfight Tactics,1603042.25,25,False
+2023,Teamfight Tactics,2184608.34,15,False
+2024,Teamfight Tactics,2691106.04,24,True
+2020,VALORANT,2503127.6,371,False
+2021,VALORANT,7108864.35,397,False
+2022,VALORANT,7125547.14,228,False
+2023,VALORANT,8915455.69,231,False
+2024,VALORANT,6365220.59,89,True
+2010,World of Warcraft,291250.0,9,False
+2011,World of Warcraft,192000.0,4,False
+2012,World of Warcraft,228000.0,3,False
+2013,World of Warcraft,189000.0,1,False
+2014,World of Warcraft,410000.0,3,False
+2015,World of Warcraft,470948.7,20,False
+2016,World of Warcraft,453000.0,4,False
+2017,World of Warcraft,749000.0,20,False
+2018,World of Warcraft,740000.0,27,False
+2019,World of Warcraft,806000.0,28,False
+2020,World of Warcraft,580200.0,12,False
+2021,World of Warcraft,930000.0,18,False
+2022,World of Warcraft,874000.0,16,False
+2023,World of Warcraft,1100000.0,25,False

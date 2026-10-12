@@ -1,0 +1,196 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 1 (waffle): share of Australian gamers who are adults. 100 squares = 100 gamers.",
+  "width": 220,
+  "height": 220,
+  "data": {
+    "sequence": {
+      "start": 0,
+      "stop": 100,
+      "as": "index"
+    }
+  },
+  "transform": [
+    {
+      "calculate": "'Gamers who are adults (18+)'",
+      "as": "metric"
+    },
+    {
+      "lookup": "metric",
+      "from": {
+        "data": {
+          "url": "data/australia_plays_headline_stats.csv"
+        },
+        "key": "metric",
+        "fields": [
+          "value",
+          "year"
+        ]
+      }
+    },
+    {
+      "calculate": "floor(datum.index / 10)",
+      "as": "row"
+    },
+    {
+      "calculate": "datum.index % 10",
+      "as": "col"
+    },
+    {
+      "calculate": "datum.index < datum.value ? 'Adults (18+)' : 'Under 18'",
+      "as": "group"
+    }
+  ],
+  "layer": [
+    {
+      "params": [
+        {
+          "name": "hover_group",
+          "select": {
+            "type": "point",
+            "fields": [
+              "group"
+            ],
+            "on": "mouseover",
+            "clear": "mouseout"
+          }
+        }
+      ],
+      "mark": {
+        "type": "rect",
+        "cornerRadius": 3
+      },
+      "encoding": {
+        "x": {
+          "field": "col",
+          "type": "ordinal",
+          "axis": null,
+          "scale": {
+            "paddingInner": 0.18
+          }
+        },
+        "y": {
+          "field": "row",
+          "type": "ordinal",
+          "axis": null,
+          "scale": {
+            "paddingInner": 0.18
+          }
+        },
+        "color": {
+          "field": "group",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Adults (18+)",
+              "Under 18"
+            ],
+            "range": [
+              "#1F6F78",
+              "#D9D6CC"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "title": null,
+            "symbolType": "square",
+            "labelLimit": 200
+          }
+        },
+        "opacity": {
+          "condition": {
+            "param": "hover_group",
+            "empty": true,
+            "value": 1
+          },
+          "value": 0.35
+        },
+        "tooltip": [
+          {
+            "field": "group",
+            "type": "nominal",
+            "title": "Group"
+          },
+          {
+            "field": "value",
+            "type": "quantitative",
+            "title": "Adults (%)"
+          },
+          {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Survey year"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.index == 0"
+        },
+        {
+          "calculate": "datum.value + '%'",
+          "as": "label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 44,
+        "fontWeight": "bold",
+        "color": "#1F6F78"
+      },
+      "encoding": {
+        "x": {
+          "value": 240
+        },
+        "y": {
+          "value": 10
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.index == 0"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 13,
+        "lineHeight": 18,
+        "color": "#333333"
+      },
+      "encoding": {
+        "x": {
+          "value": 240
+        },
+        "y": {
+          "value": 64
+        },
+        "text": {
+          "value": [
+            "of Australian gamers",
+            "are adults.",
+            "",
+            "1 square = 1 in 100",
+            "Aussie gamers"
+          ]
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Segoe UI, Helvetica, Arial, sans-serif"
+  }
+}

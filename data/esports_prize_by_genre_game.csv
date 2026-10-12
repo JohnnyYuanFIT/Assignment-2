@@ -1,0 +1,74 @@
+genre,game,release_year,total_prize_usd,total_players,total_tournaments,focus_game
+Battle royale,Fortnite,2017,191012698.69,9535,2291,False
+Battle royale,PLAYERUNKNOWN'S BATTLEGROUNDS Mobile,2017,87322954.82,4263,341,False
+Battle royale,PLAYERUNKNOWN’S BATTLEGROUNDS,2017,64200450.19,3967,631,False
+Battle royale,Apex Legends,2019,26153237.01,2317,731,False
+Battle royale,Free Fire,2017,18141992.14,1706,95,False
+Battle royale,Other battle royale games (8),,3547921.83,551,45,False
+Card games,Hearthstone,2014,30708754.65,3147,1162,False
+Card games,Magic: The Gathering Arena,2018,9194000.0,336,60,False
+Card games,Shadowverse,2016,5508473.29,248,44,False
+Card games,Other card games games (9),,2500310.88,1335,623,False
+Card games,Magic: The Gathering Online,2002,1818000.0,173,16,False
+Card games,Hearthstone Battlegrounds,2019,1755579.53,271,51,False
+Fighting,Other fighting games (172),,19220570.98,10694,5741,False
+Fighting,Street Fighter 6,2023,5179896.65,393,120,False
+Fighting,Brawlhalla,2015,4268987.83,880,698,False
+Fighting,Super Smash Bros. Melee,2001,4221849.29,2012,2746,False
+Fighting,Tekken 7,2015,3911820.6,634,426,False
+Fighting,Super Smash Bros. Ultimate,2018,2929881.74,2419,1757,False
+First-person shooter,Counter-Strike: Global Offensive,2012,162489706.76,16518,7033,True
+First-person shooter,Other first-person shooter games (122),,159415027.47,22705,6160,False
+First-person shooter,Rainbow Six Siege,2015,48130526.59,3070,568,False
+First-person shooter,Overwatch,2016,35259225.38,4047,847,False
+First-person shooter,VALORANT,2020,32018215.37,7465,1316,True
+First-person shooter,CrossFire,2007,25128357.96,1140,405,False
+First-person shooter,Counter-Strike 2,2023,21155138.09,2731,424,True
+MOBA (team battle arena),Dota 2,2013,360461163.42,4980,1934,True
+MOBA (team battle arena),League of Legends,2009,113596024.63,9588,3000,True
+MOBA (team battle arena),Arena of Valor,2015,98746138.92,2231,179,False
+MOBA (team battle arena),Other moba games (20),,35541603.28,5694,1084,False
+MOBA (team battle arena),Heroes of the Storm,2015,18464719.38,1326,506,False
+MOBA (team battle arena),Mobile Legends: Bang Bang,2016,17019451.87,2261,155,True
+Music and rhythm,osu!,2007,274092.83,1059,251,False
+Music and rhythm,Guitar Hero III: Legends of Rock,2007,19000.0,8,2,False
+Music and rhythm,Beat Saber,2019,16692.06,63,11,False
+Music and rhythm,Guitar Hero 5,2009,10500.0,3,1,False
+Music and rhythm,Synth Riders,2018,2100.0,11,7,False
+Music and rhythm,Other music and rhythm games (1),,650.0,4,2,False
+Puzzle,Tetris,1989,308794.74,180,122,False
+Puzzle,Microsoft Excel,1985,114400.0,86,43,False
+Puzzle,Tetr.io,2020,18698.3,39,18,False
+Puzzle,Wise Star 2,2008,12000.0,3,1,False
+Puzzle,Tetris Effect: Connected,2020,11529.88,35,11,False
+Puzzle,Other puzzle games (11),,10639.73,103,41,False
+Racing,Other racing games (56),,8439665.13,3229,1664,False
+Racing,iRacing.com,2008,3757336.03,1302,189,False
+Racing,rFactor 2,2013,2219963.12,557,103,False
+Racing,Rennsport,2022,2131805.52,65,9,False
+Racing,Turbo Racing League,2013,1000000.0,16,9,False
+Racing,Assetto Corsa,2014,979920.9,302,131,False
+Role-playing (incl. MMOs),World of WarCraft,2004,9150537.61,503,225,True
+Role-playing (incl. MMOs),Naraka: Bladepoint,2021,4357330.52,177,14,False
+Role-playing (incl. MMOs),Blade & Soul,2012,679006.26,89,7,False
+Role-playing (incl. MMOs),Guild Wars 2,2012,476005.5,152,57,False
+Role-playing (incl. MMOs),Old School Runescape,2013,457504.2,84,26,False
+Role-playing (incl. MMOs),Other role-playing games (4),,157552.94,86,7,False
+Sports,Rocket League,2015,42262497.19,6884,4542,False
+Sports,Other sports games (84),,41288945.56,3954,1356,False
+Sports,EA Sports FC 24,2023,7356431.34,348,76,False
+Sports,FIFA 23,2022,6197022.16,527,99,False
+Sports,FIFA 21,2020,4733259.11,417,61,False
+Sports,FIFA 22,2021,4575674.03,422,75,False
+Strategy,Other strategy games (56),,58550197.66,10365,7647,False
+Strategy,StarCraft II,2010,42692707.57,2280,7510,False
+Strategy,Clash Royale,2016,9059840.93,563,132,False
+Strategy,Teamfight Tactics,2019,8765860.25,871,109,True
+Strategy,Chess.com,2007,8609043.36,1158,779,False
+Strategy,Brawl Stars,2018,8141511.8,698,207,False
+Third-person shooter,Gears of War 4,2016,3142785.0,155,152,False
+Third-person shooter,Gears 5,2019,2320920.0,163,112,False
+Third-person shooter,Gears of War,2006,252195.57,33,18,False
+Third-person shooter,Gears of War: Ultimate Edition,2015,170000.0,39,3,False
+Third-person shooter,Gears of War 2,2008,135000.0,0,5,False
+Third-person shooter,Other third-person shooter games (4),,84925.81,113,10,False

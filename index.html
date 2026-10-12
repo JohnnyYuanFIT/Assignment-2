@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Game On, Australia</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <h1>Game On, Australia</h1>
+
+  <section id="who-plays">
+    <h2>Who plays?</h2>
+    <p>Gaming in Australia isn't just a teenage hobby.</p>
+    <div id="waffle_adults"></div>
+  </section>
+
+  <section id="what-we-play">
+  <h2>What we play (and watch)</h2>
+  <p>The thicker a game's band, the more hours people spent watching it on Twitch that month.</p>
+  <div id="streamgraph"></div>
+</section>
+
+<section id="money">
+  <h2>Where the money is</h2>
+  <p>Total prize money won by each country's esports players. Hover over a country to see its top game.</p>
+  <div id="choropleth"></div>
+</section>
+
+  <!-- Load the chart script last, after all the chart divs exist -->
+  <script src="charts.js"></script>
+</body>
+</html>
