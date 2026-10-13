@@ -9,7 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 </head>
 <body>
-  <h1>Game On, Australia</h1>
+  <h1>Hop On, Australia</h1>
 
   <section id="who-plays">
     <h2>Who plays?</h2>
@@ -27,6 +27,48 @@
   <h2>Where the money is</h2>
   <p>Total prize money won by each country's esports players. Hover over a country to see its top game.</p>
   <div id="choropleth"></div>
+</section>
+
+<section id="rankings">
+  <h2>Who's on top?</h2>
+  <p>Twitch's ten most-watched categories each year. Click a line to follow one game.</p>
+  <div id="bump"></div>
+  <p class="source">Source: Twitch data via Kaggle</p>
+</section>
+
+<section id="prize-money">
+  <h2>Follow the money</h2>
+  <p>Prize money awarded each year for each game, in millions of US dollars. Darker means more money. Blank squares mean the game hadn't been released yet.</p>
+  <div id="heatmap"></div>
+  <p class="source">Source: Esports Earnings via Kaggle.</p>
+</section>
+
+<section id="genres">
+  <h2>Which genres pay the most?</h2>
+  <p>A MOBA (multiplayer online battle arena) is a team game where two sides of five battle to destroy each other's base. League of Legends, Dota 2 and Mobile Legends are all MOBAs.</p>
+  <div id="treemap"></div>
+  <p class="source">Source: Esports Earnings via Kaggle</p>
+</section>
+
+<section id="biggest-events">
+  <h2>The biggest events of 2025</h2>
+  <p>Each dot is one 2025 PC tournament, placed by how many people were watching at its busiest moment. Most events land between half a million and two million viewers. League of Legends' world championship final is in a league of its own.</p>
+  <div id="beeswarm"></div>
+  <p class="source">Source: Esports Charts (2025 tournament reports)</p>
+</section>
+
+<section id="event-map">
+  <h2>Where the world tuned in</h2>
+  <p>Each circle is one of 2025's biggest esports events, placed where it was held. The bigger the circle, the more people were watching at its busiest moment. Rings inside rings mean one city hosted several big events. Click a game in the legend to highlight it.</p>
+  <div id="symbol_map"></div>
+  <p class="source">Source: Esports Charts (2025 tournament reports)</p>
+</section>
+
+<section id="ping">
+  <h2>Every match goes through Sydney</h2>
+  <p>Online games like League of Legends and Valorant run on servers in Sydney, so every Australian's game data has to travel there and back. "Ping" is the time that round trip takes, in milliseconds (ms). The further from Sydney you live, the higher your ping, and in fast games even a few milliseconds can decide who wins. Hover over a line for details.</p>
+  <div id="flow_map"></div>
+  <p class="source">Sources: ABS Regional Population 2024–25 (city populations)</p>
 </section>
 
   <!-- Load the chart script last, after all the chart divs exist -->

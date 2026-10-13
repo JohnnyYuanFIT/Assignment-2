@@ -1,0 +1,353 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "Chart 6 (treemap, built in Vega): all-time esports prize money, grouped by genre, then by game. Focus games in colour.",
+  "width": 720,
+  "height": 420,
+  "padding": 5,
+  "autosize": "none",
+  "data": [
+    {
+      "name": "tree",
+      "url": "data/esports_prize_by_genre_game.csv",
+      "format": {
+        "type": "csv",
+        "parse": "auto"
+      },
+      "transform": [
+        {
+          "type": "formula",
+          "as": "prize_m",
+          "expr": "datum.total_prize_usd / 1000000"
+        },
+        {
+          "type": "nest",
+          "keys": [
+            "genre"
+          ],
+          "generate": true
+        },
+        {
+          "type": "treemap",
+          "field": "total_prize_usd",
+          "sort": {
+            "field": "value",
+            "order": "descending"
+          },
+          "method": "squarify",
+          "round": true,
+          "paddingInner": 2,
+          "paddingTop": 20,
+          "size": [
+            {
+              "signal": "width"
+            },
+            {
+              "signal": "height"
+            }
+          ],
+          "ratio": 1
+        }
+      ]
+    },
+    {
+      "name": "genre_totals",
+      "source": "tree",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "!datum.children"
+        },
+        {
+          "type": "aggregate",
+          "groupby": [
+            "genre"
+          ],
+          "fields": [
+            "total_prize_usd"
+          ],
+          "ops": [
+            "sum"
+          ],
+          "as": [
+            "genre_total"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "genres",
+      "source": "tree",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.children && datum.depth == 1"
+        },
+        {
+          "type": "lookup",
+          "from": "genre_totals",
+          "key": "genre",
+          "fields": [
+            "key"
+          ],
+          "values": [
+            "genre_total"
+          ],
+          "as": [
+            "genre_total"
+          ]
+        },
+        {
+          "type": "formula",
+          "as": "genre_m",
+          "expr": "datum.genre_total / 1000000"
+        },
+        {
+          "type": "formula",
+          "as": "genre_label",
+          "expr": "replace(replace(datum.key, ' (team battle arena)', ''), ' (incl. MMOs)', '')"
+        }
+      ]
+    },
+    {
+      "name": "games",
+      "source": "tree",
+      "transform": [
+        {
+          "type": "formula",
+          "as": "label",
+          "expr": "{'Counter-Strike: Global Offensive': 'CS:GO', 'Counter-Strike 2': 'CS2', 'Mobile Legends: Bang Bang': 'MLBB', 'World of WarCraft': 'WoW', 'Teamfight Tactics': 'TFT', 'VALORANT': 'Valorant', 'PLAYERUNKNOWN\\'S BATTLEGROUNDS Mobile': 'PUBG Mobile'}[datum.game] || datum.game"
+        },
+        {
+          "type": "filter",
+          "expr": "!datum.children"
+        },
+        {
+          "type": "formula",
+          "as": "fill_colour",
+          "expr": "{'League of Legends': '#1F6F78', 'Teamfight Tactics': '#7FB7BE', 'VALORANT': '#D1495B', 'Counter-Strike: Global Offensive': '#EDAE49', 'Counter-Strike 2': '#EDAE49', 'Dota 2': '#8C2F39', 'World of WarCraft': '#3D5A80', 'Mobile Legends: Bang Bang': '#6A4C93'}[datum.game] || '#DCDCD6'"
+        },
+        {
+          "type": "formula",
+          "as": "text_colour",
+          "expr": "indexof(['#1F6F78', '#D1495B', '#8C2F39', '#3D5A80', '#6A4C93'], datum.fill_colour) >= 0 ? '#FFFFFF' : '#333333'"
+        },
+        {
+          "type": "formula",
+          "as": "box_w",
+          "expr": "datum.x1 - datum.x0"
+        },
+        {
+          "type": "formula",
+          "as": "box_h",
+          "expr": "datum.y1 - datum.y0"
+        },
+        {
+          "type": "formula",
+          "as": "show_label",
+          "expr": "(datum.box_w > 70 && datum.box_h > 34) || (datum.fill_colour != '#DCDCD6' && datum.box_w > 30 && datum.box_h > 30)"
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "type": "rect",
+      "from": {
+        "data": "genres"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "field": "x0"
+          },
+          "y": {
+            "field": "y0"
+          },
+          "x2": {
+            "field": "x1"
+          },
+          "y2": {
+            "field": "y1"
+          },
+          "fill": {
+            "value": "#F3F2EE"
+          },
+          "stroke": {
+            "value": "#FFFFFF"
+          },
+          "strokeWidth": {
+            "value": 3
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "genres"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "signal": "datum.x0 + 4"
+          },
+          "y": {
+            "signal": "datum.y0 + 14"
+          },
+          "text": {
+            "signal": "datum.x1 - datum.x0 > 45 ? datum.genre_label + ' \u00b7 $' + format(datum.genre_m, ',.0f') + 'M' : ''"
+          },
+          "fontSize": {
+            "value": 11
+          },
+          "fontWeight": {
+            "value": "bold"
+          },
+          "fill": {
+            "value": "#333333"
+          },
+          "limit": {
+            "signal": "max(datum.x1 - datum.x0 - 6, 1)"
+          }
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "name": "game_boxes",
+      "from": {
+        "data": "games"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "field": "x0"
+          },
+          "y": {
+            "field": "y0"
+          },
+          "x2": {
+            "field": "x1"
+          },
+          "y2": {
+            "field": "y1"
+          },
+          "fill": {
+            "field": "fill_colour"
+          },
+          "stroke": {
+            "value": "#FFFFFF"
+          },
+          "strokeWidth": {
+            "value": 1
+          },
+          "tooltip": {
+            "signal": "{'Game': datum.game, 'Genre': datum.genre, 'Prize money (US$ millions)': format(datum.prize_m, ',.1f'), 'Players who won money': format(datum.total_players, ','), 'Tournaments': format(datum.total_tournaments, ','), 'Released': datum.release_year ? datum.release_year : '\u2014'}"
+          }
+        },
+        "update": {
+          "fillOpacity": {
+            "value": 1
+          }
+        },
+        "hover": {
+          "fillOpacity": {
+            "value": 0.75
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "games"
+      },
+      "interactive": false,
+      "encode": {
+        "enter": {
+          "x": {
+            "signal": "datum.x0 + 5"
+          },
+          "y": {
+            "signal": "datum.y0 + 14"
+          },
+          "text": {
+            "signal": "datum.show_label ? datum.label : ''"
+          },
+          "fontSize": {
+            "value": 10
+          },
+          "fill": {
+            "field": "text_colour"
+          },
+          "limit": {
+            "signal": "max(datum.box_w - 8, 1)"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "games"
+      },
+      "interactive": false,
+      "encode": {
+        "enter": {
+          "x": {
+            "signal": "datum.x0 + 5"
+          },
+          "y": {
+            "signal": "datum.y0 + 28"
+          },
+          "text": {
+            "signal": "datum.show_label ? '$' + format(datum.prize_m, ',.0f') + 'M' : ''"
+          },
+          "fontSize": {
+            "value": 11
+          },
+          "fontWeight": {
+            "value": "bold"
+          },
+          "fill": {
+            "field": "text_colour"
+          },
+          "limit": {
+            "signal": "max(datum.box_w - 8, 1)"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "interactive": false,
+      "encode": {
+        "enter": {
+          "x": {
+            "value": 2
+          },
+          "y": {
+            "value": 13
+          },
+          "text": {
+            "value": "Box size = all-time prize money.  Coloured boxes = the games in this story; grey = every other game.  Hover for details."
+          },
+          "fontSize": {
+            "value": 11
+          },
+          "fontStyle": {
+            "value": "italic"
+          },
+          "fill": {
+            "value": "#555555"
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "text": {
+      "font": "Segoe UI, Helvetica, Arial, sans-serif"
+    }
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 5 (heatmap): esports prize money per year for each focus game, 2012-2024.",
+  "width": 650,
+  "height": 270,
+  "data": {
+    "url": "data/esports_prize_by_year.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.game != 'All esports' && datum.year >= 2012"
+    },
+    {
+      "calculate": "datum.prize_usd / 1000000",
+      "as": "prize_m"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": null,
+      "axis": {
+        "orient": "top",
+        "labelAngle": 0,
+        "domain": false,
+        "ticks": false,
+        "labelExpr": "datum.value == 2024 ? '2024*' : datum.value"
+      }
+    },
+    "y": {
+      "field": "game",
+      "type": "nominal",
+      "title": null,
+      "sort": [
+        "Dota 2",
+        "Counter-Strike",
+        "League of Legends",
+        "VALORANT",
+        "Mobile Legends: Bang Bang",
+        "Teamfight Tactics",
+        "World of Warcraft"
+      ],
+      "axis": {
+        "domain": false,
+        "ticks": false,
+        "labelLimit": 300
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "#FFFFFF",
+        "strokeWidth": 2,
+        "cornerRadius": 2
+      },
+      "encoding": {
+        "color": {
+          "field": "prize_m",
+          "type": "quantitative",
+          "title": "Prize money (US$ millions)",
+          "scale": {
+            "type": "sqrt",
+            "range": [
+              "#E3ECF3",
+              "#173F66"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "gradientLength": 240,
+            "titleLimit": 300
+          }
+        },
+        "tooltip": [
+          {
+            "field": "game",
+            "type": "nominal",
+            "title": "Game"
+          },
+          {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
+            "field": "prize_m",
+            "type": "quantitative",
+            "title": "Prize money (US$ millions)",
+            "format": ",.2f"
+          },
+          {
+            "field": "tournaments",
+            "type": "quantitative",
+            "title": "Tournaments",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.prize_m >= 0.1"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 10
+      },
+      "encoding": {
+        "text": {
+          "field": "prize_m",
+          "type": "quantitative",
+          "format": ".1f"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.prize_m > 12",
+            "value": "#FFFFFF"
+          },
+          "value": "#1F2A33"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": "2020",
+            "game": "Dota 2"
+          }
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "fill": null,
+        "stroke": "#C2702A",
+        "strokeWidth": 2.5
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "line": [
+              "Orange box: Dota 2's biggest event, The International,",
+              "was cancelled in 2020 because of COVID-19."
+            ]
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#8A4A12",
+        "lineHeight": 15
+      },
+      "encoding": {
+        "x": {
+          "datum": "2019"
+        },
+        "y": {
+          "value": 290
+        },
+        "text": {
+          "field": "line"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Segoe UI, Helvetica, Arial, sans-serif",
+    "axis": {
+      "labelFontSize": 11,
+      "labelColor": "#444444",
+      "grid": false
+    }
+  }
+}

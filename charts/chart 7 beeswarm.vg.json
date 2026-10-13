@@ -1,0 +1,282 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "Chart 7 (beeswarm, built in Vega): the 23 most-watched PC esports events of 2025 by peak viewers.",
+  "width": 700,
+  "height": 200,
+  "padding": {
+    "left": 10,
+    "right": 20,
+    "top": 10,
+    "bottom": 10
+  },
+  "signals": [
+    {
+      "name": "dot_radius",
+      "value": 9
+    }
+  ],
+  "data": [
+    {
+      "name": "events",
+      "url": "data/esports_2025_top_tournaments.csv",
+      "format": {
+        "type": "csv",
+        "parse": "auto"
+      },
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.platform == 'PC'"
+        },
+        {
+          "type": "formula",
+          "as": "peak_label",
+          "expr": "format(datum.peak_viewers / 1000000, '.2f') + ' million' + (datum.peak_is_rounded ? ' (approx.)' : '')"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "domain": [
+        0,
+        7000000
+      ],
+      "range": [
+        0,
+        {
+          "signal": "width"
+        }
+      ],
+      "zero": false
+    },
+    {
+      "name": "colour",
+      "type": "ordinal",
+      "domain": [
+        "League of Legends",
+        "Counter-Strike 2",
+        "VALORANT",
+        "Dota 2"
+      ],
+      "range": [
+        "#1F6F78",
+        "#EDAE49",
+        "#D1495B",
+        "#8C2F39"
+      ]
+    }
+  ],
+  "axes": [
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "title": "Peak viewers (the most people watching at the same moment)",
+      "format": "~s",
+      "tickCount": 7,
+      "grid": true,
+      "gridColor": "#EEEEEE",
+      "domain": false,
+      "labelColor": "#555555",
+      "titleColor": "#555555",
+      "titleFontWeight": "normal"
+    }
+  ],
+  "legends": [
+    {
+      "fill": "colour",
+      "orient": "top",
+      "direction": "horizontal",
+      "symbolType": "circle",
+      "labelLimit": 220,
+      "columns": 4
+    }
+  ],
+  "marks": [
+    {
+      "type": "symbol",
+      "name": "dots",
+      "from": {
+        "data": "events"
+      },
+      "encode": {
+        "enter": {
+          "fill": {
+            "scale": "colour",
+            "field": "game"
+          },
+          "stroke": {
+            "value": "#FFFFFF"
+          },
+          "strokeWidth": {
+            "value": 1.5
+          },
+          "size": {
+            "signal": "dot_radius * dot_radius * 3.14"
+          },
+          "xfocus": {
+            "scale": "x",
+            "field": "peak_viewers"
+          },
+          "yfocus": {
+            "signal": "height / 2"
+          },
+          "tooltip": {
+            "signal": "{'Event': datum.event, 'Game': datum.game, 'Peak viewers': datum.peak_label, 'Held in': datum.host_city + ', ' + datum.host_country}"
+          }
+        },
+        "update": {
+          "stroke": {
+            "value": "#FFFFFF"
+          },
+          "strokeWidth": {
+            "value": 1.5
+          }
+        },
+        "hover": {
+          "stroke": {
+            "value": "#222222"
+          },
+          "strokeWidth": {
+            "value": 2
+          }
+        }
+      },
+      "transform": [
+        {
+          "type": "force",
+          "static": true,
+          "iterations": 300,
+          "forces": [
+            {
+              "force": "collide",
+              "radius": {
+                "signal": "dot_radius + 1"
+              },
+              "iterations": 2
+            },
+            {
+              "force": "x",
+              "x": "xfocus",
+              "strength": 1
+            },
+            {
+              "force": "y",
+              "y": "yfocus",
+              "strength": 0.08
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "symbol",
+      "from": {
+        "data": "dots"
+      },
+      "interactive": false,
+      "encode": {
+        "enter": {
+          "x": {
+            "field": "x"
+          },
+          "y": {
+            "field": "y"
+          },
+          "size": {
+            "signal": "(dot_radius + 4) * (dot_radius + 4) * 3.14"
+          },
+          "fill": {
+            "value": null
+          },
+          "stroke": {
+            "value": "#C2702A"
+          },
+          "strokeWidth": {
+            "value": 2.5
+          },
+          "opacity": {
+            "signal": "datum.datum.event == 'IEM Melbourne 2025' ? 1 : 0"
+          }
+        }
+      }
+    },
+    {
+      "type": "rule",
+      "from": {
+        "data": "dots"
+      },
+      "interactive": false,
+      "encode": {
+        "enter": {
+          "x": {
+            "field": "x"
+          },
+          "x2": {
+            "field": "x"
+          },
+          "y": {
+            "signal": "datum.y + 14"
+          },
+          "y2": {
+            "signal": "height - 24"
+          },
+          "stroke": {
+            "value": "#C2702A"
+          },
+          "strokeWidth": {
+            "value": 1.5
+          },
+          "opacity": {
+            "signal": "datum.datum.event == 'IEM Melbourne 2025' ? 1 : 0"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "dots"
+      },
+      "interactive": false,
+      "encode": {
+        "enter": {
+          "x": {
+            "field": "x"
+          },
+          "y": {
+            "signal": "datum.datum.event == 'IEM Melbourne 2025' ? height - 8 : datum.y - 14"
+          },
+          "baseline": {
+            "signal": "datum.datum.event == 'IEM Melbourne 2025' ? 'bottom' : 'bottom'"
+          },
+          "align": {
+            "signal": "datum.x > width - 90 ? 'right' : 'center'"
+          },
+          "text": {
+            "signal": "{'2025 World Championship (final)': 'LoL Worlds final: 6.75M', 'Mid-Season Invitational 2025': 'LoL MSI: 3.45M', 'IEM Melbourne 2025': 'IEM Melbourne (Australia)'}[datum.datum.event] || ''"
+          },
+          "fontSize": {
+            "value": 11
+          },
+          "fontWeight": {
+            "value": "bold"
+          },
+          "fill": {
+            "value": "#333333"
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "text": {
+      "font": "Segoe UI, Helvetica, Arial, sans-serif"
+    },
+    "legend": {
+      "labelFont": "Segoe UI, Helvetica, Arial, sans-serif"
+    }
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 3 (bump chart): Twitch's top 10 video games by hours watched each year, 2020-2024. Non-game categories (e.g. Just Chatting, Music) removed. Focus games in colour.",
+  "width": 520,
+  "height": 320,
+  "data": {
+    "url": "data/twitch_yearly_top10_games.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.focus_game == 'True' ? datum.game : 'Other games and categories'",
+      "as": "colour_group"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": null,
+      "axis": {
+        "labelAngle": 0,
+        "labelExpr": "datum.value == 2024 ? '2024*' : datum.value",
+        "domain": false,
+        "ticks": false
+      }
+    },
+    "y": {
+      "field": "rank",
+      "type": "quantitative",
+      "title": "Rank among games on Twitch",
+      "scale": {
+        "domain": [
+          1,
+          10
+        ],
+        "reverse": true,
+        "zero": false
+      },
+      "axis": {
+        "values": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "labelExpr": "'#' + datum.value",
+        "domain": false,
+        "ticks": false,
+        "grid": false
+      }
+    },
+    "color": {
+      "field": "colour_group",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "League of Legends",
+          "VALORANT",
+          "Counter-Strike",
+          "Dota 2",
+          "World of Warcraft",
+          "Other games and categories"
+        ],
+        "range": [
+          "#1F6F78",
+          "#D1495B",
+          "#EDAE49",
+          "#8C2F39",
+          "#3D5A80",
+          "#C8C8C8"
+        ]
+      },
+      "legend": null
+    }
+  },
+  "layer": [
+    {
+      "params": [
+        {
+          "name": "pick_line",
+          "select": {
+            "type": "point",
+            "fields": [
+              "game"
+            ],
+            "on": "click"
+          }
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "strokeWidth": 3,
+        "interpolate": "monotone"
+      },
+      "encoding": {
+        "detail": {
+          "field": "segment"
+        },
+        "opacity": {
+          "condition": {
+            "param": "pick_line",
+            "empty": true,
+            "value": 1
+          },
+          "value": 0.15
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "size": 70,
+        "opacity": 1
+      },
+      "encoding": {
+        "opacity": {
+          "condition": {
+            "param": "pick_line",
+            "empty": true,
+            "value": 1
+          },
+          "value": 0.15
+        },
+        "tooltip": [
+          {
+            "field": "game",
+            "type": "nominal",
+            "title": "Game or category"
+          },
+          {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
+            "field": "rank",
+            "type": "ordinal",
+            "title": "Rank"
+          },
+          {
+            "field": "hours_watched_m",
+            "type": "quantitative",
+            "title": "Hours watched (millions)",
+            "format": ",.0f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year == 2024"
+        },
+        {
+          "calculate": "{'League of Legends':'#1F6F78','VALORANT':'#D1495B','Counter-Strike':'#B07A1E','Dota 2':'#8C2F39','World of Warcraft':'#3D5A80'}[datum.game] || '#8A8A8A'",
+          "as": "label_colour"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 10,
+        "fontSize": 11
+      },
+      "encoding": {
+        "text": {
+          "field": "game"
+        },
+        "color": {
+          "field": "label_colour",
+          "type": "nominal",
+          "scale": null
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 2020,
+            "rank": 1
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "bottom",
+        "dx": -6,
+        "dy": -12,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#333333"
+      },
+      "encoding": {
+        "text": {
+          "value": "League of Legends and GTA V take turns at #1"
+        },
+        "color": {
+          "value": "#333333"
+        },
+        "x": {
+          "datum": "2020"
+        },
+        "y": {
+          "datum": 1
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Segoe UI, Helvetica, Arial, sans-serif",
+    "axis": {
+      "labelFontSize": 11,
+      "labelColor": "#555555",
+      "titleColor": "#555555",
+      "grid": false
+    }
+  }
+}

@@ -1,0 +1,51 @@
+year,game,rank,hours_watched_m,focus_game,partial_year,segment
+2020,League of Legends,1,1553.5,True,False,League of Legends_1
+2020,Fortnite,2,1066.9,False,False,Fortnite_1
+2020,Grand Theft Auto V,3,824.2,False,False,Grand Theft Auto V_1
+2020,VALORANT,4,814.5,True,False,VALORANT_1
+2020,Call of Duty: Warzone,5,811.4,False,False,Call of Duty: Warzone_1
+2020,Counter-Strike,6,713.7,True,False,Counter-Strike_1
+2020,Minecraft,7,510.8,False,False,Minecraft_1
+2020,Dota 2,8,497.2,True,False,Dota 2_1
+2020,World of Warcraft,9,453.9,True,False,World of Warcraft_1
+2020,Among Us,10,418.9,False,False,Among Us_1
+2021,Grand Theft Auto V,1,1875.0,False,False,Grand Theft Auto V_1
+2021,League of Legends,2,1735.7,True,False,League of Legends_1
+2021,Fortnite,3,966.5,False,False,Fortnite_1
+2021,VALORANT,4,950.8,True,False,VALORANT_1
+2021,Minecraft,5,863.3,False,False,Minecraft_1
+2021,Call of Duty: Warzone,6,851.5,False,False,Call of Duty: Warzone_1
+2021,Counter-Strike,7,767.5,True,False,Counter-Strike_1
+2021,Apex Legends,8,689.8,False,False,Apex Legends_1
+2021,Dota 2,9,578.5,True,False,Dota 2_1
+2021,FIFA / EA Sports FC,10,407.6,False,False,FIFA / EA Sports FC_1
+2022,League of Legends,1,1556.7,True,False,League of Legends_1
+2022,Grand Theft Auto V,2,1414.3,False,False,Grand Theft Auto V_1
+2022,VALORANT,3,1159.8,True,False,VALORANT_1
+2022,Counter-Strike,4,699.8,True,False,Counter-Strike_1
+2022,Apex Legends,5,658.5,False,False,Apex Legends_1
+2022,Fortnite,6,620.8,False,False,Fortnite_1
+2022,Minecraft,7,547.8,False,False,Minecraft_1
+2022,Dota 2,8,532.3,True,False,Dota 2_1
+2022,Call of Duty: Warzone,9,438.3,False,False,Call of Duty: Warzone_1
+2022,World of Warcraft,10,407.6,True,False,World of Warcraft_2
+2023,Grand Theft Auto V,1,1334.6,False,False,Grand Theft Auto V_1
+2023,League of Legends,2,1322.7,True,False,League of Legends_1
+2023,VALORANT,3,988.2,True,False,VALORANT_1
+2023,Counter-Strike,4,724.7,True,False,Counter-Strike_1
+2023,Fortnite,5,617.3,False,False,Fortnite_1
+2023,Minecraft,6,583.1,False,False,Minecraft_1
+2023,Dota 2,7,550.8,True,False,Dota 2_1
+2023,World of Warcraft,8,437.1,True,False,World of Warcraft_2
+2023,Apex Legends,9,400.1,False,False,Apex Legends_1
+2023,Escape from Tarkov,10,325.6,False,False,Escape from Tarkov_1
+2024,Grand Theft Auto V,1,1149.9,False,True,Grand Theft Auto V_1
+2024,League of Legends,2,966.5,True,True,League of Legends_1
+2024,VALORANT,3,718.6,True,True,VALORANT_1
+2024,Counter-Strike,4,518.8,True,True,Counter-Strike_1
+2024,Fortnite,5,459.4,False,True,Fortnite_1
+2024,Dota 2,6,423.1,True,True,Dota 2_1
+2024,Call of Duty: Warzone,7,279.9,False,True,Call of Duty: Warzone_2
+2024,Minecraft,8,270.6,False,True,Minecraft_1
+2024,World of Warcraft,9,241.6,True,True,World of Warcraft_2
+2024,Apex Legends,10,239.4,False,True,Apex Legends_1

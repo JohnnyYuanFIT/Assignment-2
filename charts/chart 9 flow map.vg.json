@@ -1,0 +1,350 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 9 (flow map): every capital city's online games travel to servers in Sydney. Line width = estimated players, colour = distance (and the fastest possible ping).",
+  "width": 640,
+  "height": 480,
+  "projection": {
+    "type": "conicEqualArea",
+    "parallels": [
+      -18,
+      -36
+    ],
+    "rotate": [
+      -133,
+      0,
+      0
+    ]
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/au_states_topo.json",
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#EEEDE7",
+        "stroke": "#FFFFFF",
+        "strokeWidth": 1.5
+      }
+    },
+    {
+      "data": {
+        "url": "data/australia_server_routes.csv"
+      },
+      "params": [
+        {
+          "name": "hover_route",
+          "select": {
+            "type": "point",
+            "fields": [
+              "from_city"
+            ],
+            "on": "mouseover",
+            "clear": "mouseout"
+          }
+        }
+      ],
+      "mark": {
+        "type": "rule",
+        "strokeCap": "round"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "from_lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "from_lat",
+          "type": "quantitative"
+        },
+        "longitude2": {
+          "field": "to_lon"
+        },
+        "latitude2": {
+          "field": "to_lat"
+        },
+        "strokeWidth": {
+          "field": "est_players",
+          "type": "quantitative",
+          "title": "Estimated players",
+          "scale": {
+            "domain": [
+              0,
+              4500000
+            ],
+            "range": [
+              1,
+              16
+            ]
+          },
+          "legend": {
+            "values": [
+              1000000,
+              2000000,
+              4000000
+            ],
+            "format": "~s",
+            "orient": "bottom-left",
+            "symbolStrokeColor": "#8A8A8A",
+            "fillColor": "#FFFFFFDD",
+            "padding": 6
+          }
+        },
+        "color": {
+          "field": "min_possible_ping_ms",
+          "type": "quantitative",
+          "title": "Fastest possible ping (ms)",
+          "scale": {
+            "domain": [
+              0,
+              35
+            ],
+            "range": [
+              "#F2C79B",
+              "#8A3B12"
+            ]
+          },
+          "legend": {
+            "orient": "top-left",
+            "direction": "horizontal",
+            "gradientLength": 160,
+            "fillColor": "#FFFFFFDD",
+            "padding": 6,
+            "titleLimit": 250
+          }
+        },
+        "opacity": {
+          "condition": {
+            "param": "hover_route",
+            "empty": true,
+            "value": 0.9
+          },
+          "value": 0.25
+        },
+        "tooltip": [
+          {
+            "field": "from_city",
+            "type": "nominal",
+            "title": "From"
+          },
+          {
+            "field": "to_city",
+            "type": "nominal",
+            "title": "To"
+          },
+          {
+            "field": "distance_km",
+            "type": "quantitative",
+            "title": "Distance (km)",
+            "format": ","
+          },
+          {
+            "field": "min_possible_ping_ms",
+            "type": "quantitative",
+            "title": "Fastest possible ping (ms)",
+            "format": ".0f"
+          },
+          {
+            "field": "population_2025",
+            "type": "quantitative",
+            "title": "City population (2025)",
+            "format": ","
+          },
+          {
+            "field": "est_players",
+            "type": "quantitative",
+            "title": "Estimated players (82%)",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/australia_server_routes.csv"
+      },
+      "mark": {
+        "type": "circle",
+        "size": 40,
+        "color": "#333333"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "from_lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "from_lat",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/australia_server_routes.csv"
+      },
+      "transform": [
+        {
+          "filter": "datum.from_city != 'Canberra'"
+        },
+        {
+          "calculate": "datum.from_city + ' \u00b7 ' + round(datum.min_possible_ping_ms) + ' ms'",
+          "as": "label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#333333",
+        "dy": -10
+      },
+      "encoding": {
+        "longitude": {
+          "field": "from_lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "from_lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/australia_server_routes.csv"
+      },
+      "transform": [
+        {
+          "filter": "datum.from_city == 'Canberra'"
+        },
+        {
+          "calculate": "datum.from_city + ' \u00b7 ' + round(datum.min_possible_ping_ms) + ' ms'",
+          "as": "label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#333333",
+        "dy": 6,
+        "align": "right",
+        "dx": -8
+      },
+      "encoding": {
+        "longitude": {
+          "field": "from_lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "from_lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "lon": 151.2093,
+            "lat": -33.8688
+          }
+        ]
+      },
+      "layer": [
+        {
+          "mark": {
+            "type": "point",
+            "shape": "square",
+            "size": 160,
+            "filled": true,
+            "color": "#1F6F78"
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 10,
+            "fontSize": 12,
+            "fontWeight": "bold",
+            "color": "#1F6F78"
+          },
+          "encoding": {
+            "text": {
+              "value": "Sydney game servers"
+            }
+          }
+        }
+      ],
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "lon": 117.5,
+            "lat": -27.5
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#8A3B12",
+        "lineHeight": 14
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": [
+            "Perth is 3,290 km from Sydney:",
+            "about 2 million players start",
+            "every match at least 33 ms behind"
+          ]
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Segoe UI, Helvetica, Arial, sans-serif"
+  },
+  "padding": {
+    "top": 24,
+    "left": 10,
+    "right": 10,
+    "bottom": 10
+  }
+}

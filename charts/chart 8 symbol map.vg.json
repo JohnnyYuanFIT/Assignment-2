@@ -1,0 +1,333 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 8 (proportional symbol map): where 2025's most-watched esports events were held. Circle area = peak viewers, colour = game.",
+  "width": 720,
+  "height": 380,
+  "projection": {
+    "type": "equalEarth",
+    "rotate": [
+      -150,
+      0,
+      0
+    ]
+  },
+  "layer": [
+    {
+      "data": {
+        "sphere": true
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#FAFAF8",
+        "stroke": "#D5D5D0",
+        "strokeWidth": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "data/world_countries_110m_topo.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "transform": [
+        {
+          "filter": "datum.properties.name != 'Antarctica'"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "#E2E2DC",
+        "stroke": "#FFFFFF",
+        "strokeWidth": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "data/world_countries_110m_topo.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "transform": [
+        {
+          "filter": "datum.id == '036'"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "#F3E3D3",
+        "stroke": "#C2702A",
+        "strokeWidth": 1.5
+      }
+    },
+    {
+      "data": {
+        "url": "data/esports_2025_top_tournaments.csv"
+      },
+      "transform": [
+        {
+          "filter": "isValid(datum.lat) && datum.lat != ''"
+        },
+        {
+          "calculate": "toNumber(datum.lat)",
+          "as": "lat_n"
+        },
+        {
+          "calculate": "toNumber(datum.lon)",
+          "as": "lon_n"
+        },
+        {
+          "calculate": "format(toNumber(datum.peak_viewers) / 1000000, '.2f') + ' million'",
+          "as": "peak_label"
+        }
+      ],
+      "params": [
+        {
+          "name": "pick_game",
+          "select": {
+            "type": "point",
+            "fields": [
+              "game"
+            ]
+          },
+          "bind": "legend"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "stroke": "#FFFFFF",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon_n",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat_n",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "peak_viewers",
+          "type": "quantitative",
+          "title": "Peak viewers",
+          "scale": {
+            "domain": [
+              0,
+              7000000
+            ],
+            "range": [
+              0,
+              2600
+            ]
+          },
+          "legend": {
+            "values": [
+              1000000,
+              3000000,
+              6000000
+            ],
+            "format": "~s",
+            "symbolFillColor": "#BBBBBB",
+            "symbolStrokeColor": "#FFFFFF",
+            "orient": "bottom",
+            "direction": "horizontal",
+            "title": "Peak viewers"
+          }
+        },
+        "color": {
+          "field": "game",
+          "type": "nominal",
+          "title": "Game (click to highlight)",
+          "scale": {
+            "domain": [
+              "League of Legends",
+              "Mobile Legends: Bang Bang",
+              "Counter-Strike 2",
+              "VALORANT",
+              "Dota 2",
+              "PUBG Mobile"
+            ],
+            "range": [
+              "#1F6F78",
+              "#6A4C93",
+              "#EDAE49",
+              "#D1495B",
+              "#8C2F39",
+              "#9A9A9A"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "columns": 3,
+            "labelLimit": 300,
+            "titleLimit": 250,
+            "symbolType": "circle"
+          }
+        },
+        "opacity": {
+          "condition": {
+            "param": "pick_game",
+            "empty": true,
+            "value": 0.75
+          },
+          "value": 0.1
+        },
+        "order": {
+          "field": "peak_viewers",
+          "type": "quantitative",
+          "sort": "descending"
+        },
+        "tooltip": [
+          {
+            "field": "event",
+            "type": "nominal",
+            "title": "Event"
+          },
+          {
+            "field": "game",
+            "type": "nominal",
+            "title": "Game"
+          },
+          {
+            "field": "peak_label",
+            "type": "nominal",
+            "title": "Peak viewers"
+          },
+          {
+            "field": "host_city",
+            "type": "nominal",
+            "title": "City"
+          },
+          {
+            "field": "host_country",
+            "type": "nominal",
+            "title": "Country"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "lon": 144.96,
+            "lat": -37.81,
+            "label": [
+              "IEM Melbourne: 1.24M viewers,",
+              "Australia's biggest esports event ever"
+            ]
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#333333",
+        "lineHeight": 14,
+        "baseline": "middle",
+        "align": "left",
+        "dx": 14,
+        "dy": 6
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "lon": 104.07,
+            "lat": 30.57,
+            "label": [
+              "Worlds final, Chengdu: 6.75M"
+            ]
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#333333",
+        "lineHeight": 14,
+        "baseline": "middle",
+        "align": "right",
+        "dx": -34,
+        "dy": 0
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "lon": 106.85,
+            "lat": -6.21,
+            "label": [
+              "Jakarta: 3 huge MLBB events"
+            ]
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#333333",
+        "lineHeight": 14,
+        "baseline": "middle",
+        "align": "right",
+        "dx": -26,
+        "dy": 0
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Segoe UI, Helvetica, Arial, sans-serif"
+  }
+}

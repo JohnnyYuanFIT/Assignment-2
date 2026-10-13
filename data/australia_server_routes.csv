@@ -1,8 +1,8 @@
-from_city,state,from_lat,from_lon,to_city,to_lat,to_lon,servers_in_sydney,distance_km,min_possible_ping_ms
-Perth,Western Australia,-31.9523,115.8613,Sydney,-33.8688,151.2093,League of Legends; Teamfight Tactics; VALORANT,3290,32.9
-Darwin,Northern Territory,-12.4634,130.8456,Sydney,-33.8688,151.2093,League of Legends; Teamfight Tactics; VALORANT,3149,31.5
-Adelaide,South Australia,-34.9285,138.6007,Sydney,-33.8688,151.2093,League of Legends; Teamfight Tactics; VALORANT,1162,11.6
-Hobart,Tasmania,-42.8821,147.3272,Sydney,-33.8688,151.2093,League of Legends; Teamfight Tactics; VALORANT,1057,10.6
-Brisbane,Queensland,-27.4698,153.0251,Sydney,-33.8688,151.2093,League of Legends; Teamfight Tactics; VALORANT,732,7.3
-Melbourne,Victoria,-37.8136,144.9631,Sydney,-33.8688,151.2093,League of Legends; Teamfight Tactics; VALORANT,713,7.1
-Canberra,Australian Capital Territory,-35.2809,149.13,Sydney,-33.8688,151.2093,League of Legends; Teamfight Tactics; VALORANT,247,2.5
+from_city,state,from_lat,from_lon,to_city,to_lat,to_lon,servers_in_sydney,distance_km,min_possible_ping_ms,population_2025,est_players
+Perth,Western Australia,-31.9523,115.8613,Sydney,-33.8688,151.2093,League of Legends; Teamfight Tactics; VALORANT,3290,32.9,2452800,2011000
+Darwin,Northern Territory,-12.4634,130.8456,Sydney,-33.8688,151.2093,League of Legends; Teamfight Tactics; VALORANT,3149,31.5,159300,131000
+Adelaide,South Australia,-34.9285,138.6007,Sydney,-33.8688,151.2093,League of Legends; Teamfight Tactics; VALORANT,1162,11.6,1491000,1223000
+Hobart,Tasmania,-42.8821,147.3272,Sydney,-33.8688,151.2093,League of Legends; Teamfight Tactics; VALORANT,1057,10.6,255300,209000
+Brisbane,Queensland,-27.4698,153.0251,Sydney,-33.8688,151.2093,League of Legends; Teamfight Tactics; VALORANT,732,7.3,2833500,2323000
+Melbourne,Victoria,-37.8136,144.9631,Sydney,-33.8688,151.2093,League of Legends; Teamfight Tactics; VALORANT,713,7.1,5435600,4457000
+Canberra,Australian Capital Territory,-35.2809,149.13,Sydney,-33.8688,151.2093,League of Legends; Teamfight Tactics; VALORANT,247,2.5,484600,397000
