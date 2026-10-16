@@ -1,0 +1,140 @@
+/* ---------- Colours and type ---------- */
+:root {
+  --paper: #FAF6EE;      /* page background */
+  --paper-deep: #F2ECDF; /* footer and callouts */
+  --ink: #1E2328;        /* main text */
+  --muted: #5B6168;      /* captions, sources */
+  --rule: #E2DACB;       /* dividing lines */
+  --accent: #C2702A;     /* Australia, used in the charts too */
+  --accent-ink: #8A4A12; /* links (darker, for contrast) */
+
+  --font-display: "Chakra Petch", "Segoe UI", sans-serif;
+  --font-body: "Atkinson Hyperlegible", "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+a { color: var(--accent-ink); text-underline-offset: 3px; }
+a:hover { color: var(--ink); }
+a:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+p { margin: 0 0 1em; max-width: 66ch; }
+
+h1, h2, h3 { font-family: var(--font-display); color: var(--ink); margin: 0; }
+
+/* ---------- Hero ---------- */
+.hero { padding: 96px 0 56px; }
+
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  margin-bottom: 28px;
+}
+
+.standfirst {
+  font-size: 1.375rem;
+  line-height: 1.45;
+  max-width: 42ch;
+  margin-bottom: 20px;
+}
+
+.byline { font-size: 0.95rem; color: var(--muted); }
+
+/* The colour key: every game keeps one colour across the whole page */
+.game-key { margin: 48px 0 0; }
+.game-key-bar { display: flex; height: 14px; border-radius: 2px; overflow: hidden; }
+.game-key-bar span { flex: 1; }
+.game-key-labels {
+  display: flex; margin: 8px 0 0; padding: 0; list-style: none;
+  font-size: 0.8rem; color: var(--muted); line-height: 1.3;
+}
+.game-key-labels li { flex: 1; padding-right: 6px; }
+.game-key-note { font-size: 0.9rem; color: var(--muted); margin-top: 14px; }
+
+/* ---------- Chapter list ---------- */
+.contents {
+  display: flex; flex-wrap: wrap; gap: 8px 28px;
+  margin: 0; padding: 20px 0; list-style: none;
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  font-family: var(--font-display); font-size: 1rem; font-weight: 600;
+}
+.contents a { color: var(--ink); text-decoration: none; }
+.contents a:hover { color: var(--accent-ink); }
+.contents .num { color: var(--accent); margin-right: 6px; }
+
+/* ---------- Chapters ---------- */
+.chapter { padding: 80px 0 24px; border-bottom: 1px solid var(--rule); }
+
+.chapter-head { margin-bottom: 28px; }
+.chapter-num {
+  display: block; font-family: var(--font-display); font-weight: 600;
+  font-size: 1rem; color: var(--accent); margin-bottom: 6px;
+}
+.chapter-head h2 { font-size: 2.25rem; font-weight: 700; line-height: 1.1; max-width: 26ch; }
+
+/* One chart with its own heading, text and source */
+.figure { margin: 48px 0 56px; }
+.figure h3 { font-size: 1.375rem; font-weight: 600; line-height: 1.25; margin-bottom: 10px; max-width: 40ch; }
+.chart { margin: 20px 0 10px; overflow-x: auto; }
+.source { font-size: 0.85rem; line-height: 1.5; color: var(--muted); max-width: 80ch; margin: 0; }
+
+/* Text beside a small chart */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 48px; align-items: center; }
+.split .chart { margin: 0; }
+
+/* Dropdowns that Vega adds under some charts */
+.vega-bindings { font-size: 0.95rem; margin-top: 8px; }
+.vega-bindings select {
+  font: inherit; color: var(--ink); background: #FFFFFF;
+  border: 1px solid var(--rule); border-radius: 4px; padding: 4px 8px; margin-left: 6px;
+}
+
+/* Hover tooltips */
+#vg-tooltip-element { font-family: var(--font-body); font-size: 0.85rem; }
+
+/* ---------- Ending ---------- */
+.takeaways { padding: 80px 0; }
+.takeaways ol { margin: 28px 0 0; padding: 0; list-style: none; counter-reset: point; display: grid; gap: 28px; }
+.takeaways li { counter-increment: point; display: grid; grid-template-columns: 56px minmax(0, 1fr); max-width: 72ch; }
+.takeaways li::before {
+  content: counter(point); font-family: var(--font-display); font-weight: 700;
+  font-size: 2rem; line-height: 1; color: var(--accent);
+}
+.takeaways strong { font-family: var(--font-display); font-size: 1.2rem; display: block; margin-bottom: 4px; }
+
+/* ---------- Footer ---------- */
+.site-footer { background: var(--paper-deep); padding: 56px 0 72px; font-size: 0.92rem; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 48px; }
+.site-footer h2 { font-size: 1.2rem; margin-bottom: 14px; }
+.site-footer ul { margin: 0; padding-left: 1.1em; }
+.site-footer li { margin-bottom: 6px; }
+
+/* ---------- Smaller screens ---------- */
+@media (max-width: 760px) {
+  body { font-size: 17px; }
+  .page { padding: 0 20px; }
+  .hero { padding-top: 56px; }
+  .split, .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+  .game-key-labels { display: none; }
+  .chapter-head h2 { font-size: 1.8rem; }
+}

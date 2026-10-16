@@ -1,3 +1,5 @@
+const options = { actions: false, config: { background: null } };
+
 vegaEmbed("#waffle_adults", "charts/chart 1 waffle_adults.vg.json", { actions: false }).catch(console.error);
 vegaEmbed("#streamgraph", "charts/chart 2 streamgraph.vg.json", { actions: false }).catch(console.error);
 vegaEmbed("#choropleth", "charts/chart 3 choropleth.vg.json", { actions: false }).catch(console.error);

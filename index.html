@@ -3,75 +3,189 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Game On, Australia</title>
+  <title>Hop on, Australia</title>
+  <meta name="description" content="How Australians play, watch and compete in online games, from League of Legends to Mobile Legends.">
+
+  <!-- Fonts: Chakra Petch for headings, Atkinson Hyperlegible for reading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 </head>
 <body>
-  <h1>Hop On, Australia</h1>
 
-  <section id="who-plays">
-    <h2>Who plays?</h2>
-    <p>Gaming in Australia isn't just a teenage hobby.</p>
-    <div id="waffle_adults"></div>
-  </section>
+<div class="page">
+  <header class="hero">
+    <h1>Hop On,<br>Australia</h1>
+    <p class="standfirst">Eight in ten Australians play video games. This is the story of the online games many of us play and watch, and how Australia fits into a global scene.</p>
+    <p class="byline">By Johnny Yuan</p>
 
-  <section id="what-we-play">
-  <h2>What we play (and watch)</h2>
-  <p>The thicker a game's band, the more hours people spent watching it on Twitch that month.</p>
-  <div id="streamgraph"></div>
-</section>
+  <nav aria-label="Chapters">
+    <ol class="contents">
+      <li><a href="#who-plays"><span class="num">1</span>Who plays</a></li>
+      <li><a href="#watching"><span class="num">2</span>What we watch</a></li>
+      <li><a href="#money"><span class="num">3</span>Where the money goes</a></li>
+      <li><a href="#big-stage"><span class="num">4</span>The big stage</a></li>
+      <li><a href="#australia"><span class="num">5</span>Australia up close</a></li>
+    </ol>
+  </nav>
 
-<section id="money">
-  <h2>Where the money is</h2>
-  <p>Total prize money won by each country's esports players. Hover over a country to see its top game.</p>
-  <div id="choropleth"></div>
-</section>
+  <main>
 
-<section id="rankings">
-  <h2>Who's on top?</h2>
-  <p>Twitch's ten most-watched categories each year. Click a line to follow one game.</p>
-  <div id="bump"></div>
-  <p class="source">Source: Twitch data via Kaggle</p>
-</section>
+    <!-- 1 -->
+    <section class="chapter" id="who-plays">
+      <div class="chapter-head">
+        <span class="chapter-num">Chapter 1</span>
+        <h2>Gaming isn't just for teenagers</h2>
+      </div>
 
-<section id="prize-money">
-  <h2>Follow the money</h2>
-  <p>Prize money awarded each year for each game, in millions of US dollars. Darker means more money. Blank squares mean the game hadn't been released yet.</p>
-  <div id="heatmap"></div>
-  <p class="source">Source: Esports Earnings via Kaggle.</p>
-</section>
+      <div class="figure split">
+        <div>
+          <h3>Most Australian gamers are adults</h3>
+          <p>82% of Australians play video games, and the average Australian gamer is 35 years old. Out of every 100 gamers, 81 are aged 18 or over.</p>
+          <p>That makes games one of the country's most common hobbies, shared across ages. The rest of this page looks at the competitive online games that many of those players follow.</p>
+          <p class="source">Source: IGEA and Bond University, Australia Plays 2025.</p>
+        </div>
+        <div class="chart" id="waffle_adults"></div>
+      </div>
+    </section>
 
-<section id="genres">
-  <h2>Which genres pay the most?</h2>
-  <p>A MOBA (multiplayer online battle arena) is a team game where two sides of five battle to destroy each other's base. League of Legends, Dota 2 and Mobile Legends are all MOBAs.</p>
-  <div id="treemap"></div>
-  <p class="source">Source: Esports Earnings via Kaggle</p>
-</section>
+    <!-- 2 -->
+    <section class="chapter" id="watching">
+      <div class="chapter-head">
+        <span class="chapter-num">Chapter 2</span>
+        <h2>The games the world watches</h2>
+      </div>
+      <p>Millions of people don't just play these games, they watch other people play them, live, on streaming sites like Twitch.</p>
 
-<section id="biggest-events">
-  <h2>The biggest events of 2025</h2>
-  <p>Each dot is one 2025 PC tournament, placed by how many people were watching at its busiest moment. Most events land between half a million and two million viewers. League of Legends' world championship final is in a league of its own.</p>
-  <div id="beeswarm"></div>
-  <p class="source">Source: Esports Charts (2025 tournament reports)</p>
-</section>
+      <div class="figure">
+        <h3>A decade of watching on Twitch</h3>
+        <p>The thicker a game's band, the more hours people spent watching it that month. Valorant arrived in April 2020 with a huge spike, because early access to the game was handed out to people watching streams.</p>
+        <div class="chart" id="streamgraph"></div>
+        <p class="source">Source: Twitch data via Kaggle </p>
+      </div>
 
-<section id="event-map">
-  <h2>Where the world tuned in</h2>
-  <p>Each circle is one of 2025's biggest esports events, placed where it was held. The bigger the circle, the more people were watching at its busiest moment. Rings inside rings mean one city hosted several big events. Click a game in the legend to highlight it.</p>
-  <div id="symbol_map"></div>
-  <p class="source">Source: Esports Charts (2025 tournament reports)</p>
-</section>
+      <div class="figure">
+        <h3>Who's on top?</h3>
+        <p>Twitch's ten most-watched video games each year. League of Legends and GTA V take turns at number one, while Valorant and Counter-Strike have both climbed into the top four. Click a line to follow one game.</p>
+        <div class="chart" id="bump"></div>
+        <p class="source">Source: Twitch data via Kaggle</p>
+      </div>
+    </section>
 
-<section id="ping">
-  <h2>Every match goes through Sydney</h2>
-  <p>Online games like League of Legends and Valorant run on servers in Sydney, so every Australian's game data has to travel there and back. "Ping" is the time that round trip takes, in milliseconds (ms). The further from Sydney you live, the higher your ping, and in fast games even a few milliseconds can decide who wins. Hover over a line for details.</p>
-  <div id="flow_map"></div>
-  <p class="source">Sources: ABS Regional Population 2024–25 (city populations)</p>
-</section>
+    <!-- 3 -->
+    <section class="chapter" id="money">
+      <div class="chapter-head">
+        <span class="chapter-num">Chapter 3</span>
+        <h2>Where the money goes</h2>
+      </div>
+      <p>Professional players compete for prize money at tournaments known as esports. Some games pay far more than others.</p>
 
-  <!-- Load the chart script last, after all the chart divs exist -->
-  <script src="charts.js"></script>
+      <div class="figure">
+        <h3>Prize money, year by year</h3>
+        <p>Darker squares mean more prize money, in millions of US dollars. Blank squares mean the game hadn't been released. Dota 2's total crashed in 2020 when its biggest event, The International, was cancelled because of COVID-19, then bounced straight back.</p>
+        <div class="chart" id="heatmap"></div>
+        <p class="source">Source: Esports Earnings via Kaggle</p>
+      </div>
+
+      <div class="figure">
+        <h3>Which kinds of games pay the most?</h3>
+        <p>Each box is one game, sized by all the prize money it has ever paid out, and grouped by genre. A MOBA (multiplayer online battle arena) is a team game where two sides of five try to destroy each other's base. League of Legends, Dota 2 and Mobile Legends are all MOBAs, and together MOBAs have paid out more than any other genre.</p>
+        <div class="chart" id="treemap"></div>
+        <p class="source">Source: Esports Earnings via Kaggle, all-time totals to October 2024.</p>
+      </div>
+
+      <div class="figure">
+        <h3>Where the winners come from</h3>
+        <p>Total prize money won by each country's players. Australia ranks 14th in the world, and its top-earning game is Dota 2. Hover over a country to see its top game.</p>
+        <div class="chart" id="choropleth"></div>
+        <p class="source">Source: Esports Earnings, accessed October 2026</p>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="chapter" id="big-stage">
+      <div class="chapter-head">
+        <span class="chapter-num">Chapter 4</span>
+        <h2>The big stage</h2>
+      </div>
+      <p>The biggest tournaments now draw audiences the size of major sporting events. "Peak viewers" means the most people watching at the same moment.</p>
+
+      <div class="figure">
+        <h3>2025's biggest PC events</h3>
+        <p>Each dot is one tournament, placed by its peak audience. Most events land between half a million and two million viewers. The League of Legends world championship final is in a league of its own.</p>
+        <div class="chart" id="beeswarm"></div>
+        <p class="source">Source: Esports Charts (2025 tournament reports)</p>
+      </div>
+
+      <div class="figure">
+        <h3>Where the world tuned in</h3>
+        <p>The same events, plus the biggest mobile tournaments, placed where they were held. Bigger circles mean bigger audiences, and rings inside rings mean one city hosted several. Asia dominates, but Melbourne holds its own. Click a game in the legend to highlight it.</p>
+        <div class="chart" id="symbol_map"></div>
+        <p class="source">Source: Esports Charts (2025 tournament reports)</p>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="chapter" id="australia">
+      <div class="chapter-head">
+        <span class="chapter-num">Chapter 5</span>
+        <h2>Australia up close</h2>
+      </div>
+
+      <div class="figure">
+        <h3>What each state is searching for</h3>
+        <p>How Google searches for five popular games were split in each state over the past year. Use the menu below the map to switch games, and click a state to see its full breakdown. Dota 2 leads in every state, while Mobile Legends, huge in Southeast Asia, barely registers here.</p>
+        <div class="chart" id="state_map"></div>
+        <p class="source">Sources: Google Trends (Australia, October 2025 to October 2026, share of searches among the five games shown); ABS state populations, June 2025. Player numbers are estimates: population × 82% (IGEA Australia Plays 2025). Search interest shows what people look up, not how many people play each game.</p>
+      </div>
+
+      <div class="figure">
+        <h3>Every match goes through Sydney</h3>
+        <p>Games like League of Legends and Valorant run on servers in Sydney, so every Australian player's data travels there and back. "Ping" is the time that round trip takes, in milliseconds (ms). In fast games, a few milliseconds can decide who wins, and players in Perth start every match behind.</p>
+        <div class="chart" id="flow_map"></div>
+        <p class="source">Sources: ABS Regional Population 2024–25; IGEA Australia Plays 2025. "Fastest possible ping" is the round trip at the speed of light through fibre-optic cable; real pings are always higher.</p>
+      </div>
+    </section>
+
+    <section class="takeaways" aria-labelledby="takeaways-title">
+      <h2 id="takeaways-title">What it all means</h2>
+      <ol>
+        <li><div><strong>Australia plays the world's games</strong>Most Australians play, and the games we follow are global: League of Legends, Valorant and Counter-Strike sit near the top of what the world watches.</div></li>
+        <li><div><strong>Money and audiences tell different stories</strong>Dota 2 has paid out the most prize money, League of Legends draws the biggest crowds, and Mobile Legends fills stadiums in Southeast Asia while barely registering in Australia.</div></li>
+        <li><div><strong>Distance still matters</strong>Melbourne can host world-class events, but every online match still runs through Sydney, and players in Perth and Darwin start every game more than 30 milliseconds behind.</div></li>
+      </ol>
+    </section>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="page footer-grid">
+    <div>
+      <h2>Data sources</h2>
+      <ul>
+        <li>IGEA and Bond University, <a href="https://igea.net/">Australia Plays 2025</a> and Digital Australia 2016</li>
+        <li><a href="https://www.esportsearnings.com/">Esports Earnings</a>, country rankings (accessed October 2026)</li>
+        <li>Ran Kirshenboim, <a href="https://www.kaggle.com/datasets/rankirsh/esports-earnings">Esports Earnings</a> and <a href="https://www.kaggle.com/datasets/rankirsh/evolution-of-top-games-on-twitch">Evolution of Top Games on Twitch</a>, Kaggle</li>
+        <li><a href="https://escharts.com/">Esports Charts</a>, 2025 tournament and year-end reports</li>
+        <li><a href="https://trends.google.com/">Google Trends</a>, Australia, October 2025 to October 2026</li>
+        <li><a href="https://www.abs.gov.au/">Australian Bureau of Statistics</a>, Regional Population 2024–25 and National, state and territory population</li>
+        <li>Map shapes: <a href="https://github.com/topojson/world-atlas">world-atlas</a> (Natural Earth) and <a href="https://github.com/rowanhogan/australian-states">Australian states</a> (ABS boundaries)</li>
+      </ul>
+    </div>
+    <div>
+      <h2>About this page</h2>
+      <p>Made by [Johnny Yuan]</p>
+    </div>
+  </div>
+</footer>
+
+<script src="charts.js"></script>
 </body>
 </html>
