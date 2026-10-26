@@ -9,3 +9,5 @@ vegaEmbed("#treemap", "charts/chart 6 treemap.vg.json", { actions: false }).catc
 vegaEmbed("#beeswarm", "charts/chart 7 beeswarm.vg.json", { actions: false }).catch(console.error);
 vegaEmbed("#symbol_map", "charts/chart 8 symbol map.vg.json", { actions: false }).catch(console.error);
 vegaEmbed("#flow_map", "charts/chart 9 flow map.vg.json", { actions: false }).catch(console.error);
+vegaEmbed("#lollipop", "charts/chart 10 lollipop.vg.json", options).catch(console.error);
+vegaEmbed("#slope", "charts/chart 11 slope.vg.json", options).catch(console.error);
