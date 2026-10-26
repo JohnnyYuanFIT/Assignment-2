@@ -1,0 +1,235 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 12 (slope chart): each game's share of all hours watched on Twitch, 2016 vs 2024 (January to September of each year).",
+  "width": 360,
+  "height": 400,
+  "data": {
+    "url": "data/twitch_monthly_focus_games.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "year": "number",
+        "month": "number",
+        "hours_watched": "number",
+        "share_of_twitch_pct": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "filter": "(datum.year == 2016 || datum.year == 2024) && datum.month <= 9"
+    },
+    {
+      "filter": "indexof(['League of Legends', 'VALORANT', 'Counter-Strike', 'Dota 2', 'World of Warcraft'], datum.game) >= 0"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "mean",
+          "field": "share_of_twitch_pct",
+          "as": "share"
+        },
+        {
+          "op": "mean",
+          "field": "hours_watched",
+          "as": "avg_hours"
+        }
+      ],
+      "groupby": [
+        "game",
+        "year"
+      ]
+    },
+    {
+      "filter": "datum.share > 0"
+    },
+    {
+      "calculate": "datum.avg_hours / 1000000",
+      "as": "avg_hours_m"
+    },
+    {
+      "calculate": "datum.year == 2016 ? '2016' : '2024'",
+      "as": "year_label"
+    },
+    {
+      "calculate": "datum.game == 'VALORANT' ? 'Valorant' : datum.game",
+      "as": "game_name"
+    },
+    {
+      "calculate": "datum.game == 'Counter-Strike' && datum.year == 2024 ? datum.share + 0.45 : (datum.game == 'Dota 2' && datum.year == 2024 ? datum.share - 0.45 : datum.share)",
+      "as": "label_y"
+    },
+    {
+      "calculate": "datum.game_name + '  ' + format(datum.share, '.1f') + '%'",
+      "as": "left_label"
+    },
+    {
+      "calculate": "format(datum.share, '.1f') + '%  ' + datum.game_name + (datum.game == 'VALORANT' ? ' (new in 2020)' : '')",
+      "as": "right_label"
+    },
+    {
+      "calculate": "{'League of Legends':'#1F6F78','VALORANT':'#C23B4E','Counter-Strike':'#9A6A12','Dota 2':'#8C2F39','World of Warcraft':'#3D5A80'}[datum.game]",
+      "as": "text_colour"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "year_label",
+      "type": "ordinal",
+      "title": null,
+      "scale": {
+        "padding": 0.1
+      },
+      "axis": {
+        "orient": "top",
+        "labelAngle": 0,
+        "labelFontSize": 14,
+        "labelFontWeight": "bold",
+        "domain": false,
+        "ticks": false,
+        "labelExpr": "datum.value == '2024' ? '2024 (Jan–Sep)' : '2016 (Jan–Sep)'"
+      }
+    },
+    "y": {
+      "field": "share",
+      "type": "quantitative",
+      "axis": null,
+      "scale": {
+        "domain": [
+          0,
+          21
+        ]
+      }
+    },
+    "color": {
+      "field": "game",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "League of Legends",
+          "VALORANT",
+          "Counter-Strike",
+          "Dota 2",
+          "World of Warcraft"
+        ],
+        "range": [
+          "#1F6F78",
+          "#D1495B",
+          "#EDAE49",
+          "#8C2F39",
+          "#3D5A80"
+        ]
+      },
+      "legend": null
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 3
+      },
+      "encoding": {
+        "detail": {
+          "field": "game"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "size": 110,
+        "opacity": 1
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "game_name",
+            "type": "nominal",
+            "title": "Game"
+          },
+          {
+            "field": "year_label",
+            "type": "nominal",
+            "title": "Year"
+          },
+          {
+            "field": "share",
+            "type": "quantitative",
+            "title": "Share of all Twitch viewing (%)",
+            "format": ".1f"
+          },
+          {
+            "field": "avg_hours_m",
+            "type": "quantitative",
+            "title": "Hours watched per month (millions)",
+            "format": ",.1f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year == 2016"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -12,
+        "fontSize": 12
+      },
+      "encoding": {
+        "y": {
+          "field": "label_y",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "left_label"
+        },
+        "color": {
+          "field": "text_colour",
+          "type": "nominal",
+          "scale": null
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year == 2024"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 12,
+        "fontSize": 12
+      },
+      "encoding": {
+        "y": {
+          "field": "label_y",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "right_label"
+        },
+        "color": {
+          "field": "text_colour",
+          "type": "nominal",
+          "scale": null
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Atkinson Hyperlegible, Segoe UI, sans-serif",
+    "axis": {
+      "labelColor": "#222222"
+    }
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 11 (lollipop chart): the 12 games Australian players have won the most prize money in, all time.",
+  "width": 560,
+  "height": 380,
+  "data": {
+    "url": "data/australia_esports_prize_by_game.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "rank": "number",
+        "prize_usd": "number",
+        "australian_players": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "filter": "datum.rank <= 12"
+    },
+    {
+      "calculate": "datum.prize_usd / 1000000",
+      "as": "prize_m"
+    },
+    {
+      "calculate": "{'Counter-Strike: Global Offensive': 'CS:GO', 'PLAYERUNKNOWN\\'S BATTLEGROUNDS': 'PUBG: Battlegrounds', 'World of WarCraft': 'World of Warcraft'}[datum.game] || datum.game",
+      "as": "game_label"
+    },
+    {
+      "calculate": "{'Dota 2': '#8C2F39', 'Counter-Strike: Global Offensive': '#EDAE49', 'League of Legends': '#1F6F78', 'World of WarCraft': '#3D5A80'}[datum.game] || '#A8A8A8'",
+      "as": "dot_colour"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "game_label",
+      "type": "nominal",
+      "title": null,
+      "sort": {
+        "field": "rank",
+        "op": "min",
+        "order": "ascending"
+      },
+      "axis": {
+        "domain": false,
+        "ticks": false,
+        "labelFontSize": 12,
+        "labelLimit": 200,
+        "labelPadding": 8
+      }
+    },
+    "x": {
+      "field": "prize_m",
+      "type": "quantitative",
+      "title": "Prize money won by Australian players (US$ millions)",
+      "scale": {
+        "domain": [
+          0,
+          9
+        ]
+      },
+      "axis": {
+        "grid": true,
+        "gridColor": "#E6E0D4",
+        "domain": false,
+        "ticks": false,
+        "tickCount": 9,
+        "titleFontWeight": "normal",
+        "titleColor": "#555555"
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 2.5
+      },
+      "encoding": {
+        "x2": {
+          "datum": 0
+        },
+        "color": {
+          "field": "dot_colour",
+          "type": "nominal",
+          "scale": null
+        }
+      }
+    },
+    {
+      "params": [
+        {
+          "name": "hover_game",
+          "select": {
+            "type": "point",
+            "fields": [
+              "game"
+            ],
+            "on": "mouseover",
+            "clear": "mouseout"
+          }
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "opacity": 1,
+        "stroke": "#FFFFFF",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "color": {
+          "field": "dot_colour",
+          "type": "nominal",
+          "scale": null
+        },
+        "size": {
+          "condition": {
+            "param": "hover_game",
+            "empty": false,
+            "value": 280
+          },
+          "value": 170
+        },
+        "tooltip": [
+          {
+            "field": "game",
+            "type": "nominal",
+            "title": "Game"
+          },
+          {
+            "field": "prize_m",
+            "type": "quantitative",
+            "title": "Prize money (US$ millions)",
+            "format": ",.2f"
+          },
+          {
+            "field": "australian_players",
+            "type": "quantitative",
+            "title": "Australian players who won money",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 12,
+        "fontSize": 11,
+        "color": "#333333"
+      },
+      "encoding": {
+        "text": {
+          "field": "prize_m",
+          "type": "quantitative",
+          "format": "$.1f"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.game == 'Dota 2'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": 0,
+        "dy": 8,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#8C2F39",
+        "lineHeight": 14
+      },
+      "encoding": {
+        "x": {
+          "datum": 8.9
+        },
+        "y": {
+          "datum": "Rocket League"
+        },
+        "text": {
+          "value": [
+            "Dota 2: about $6M of Australia's $8M was won",
+            "by one player, Anathan “ana” Pham,",
+            "a two-time world champion"
+          ]
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Atkinson Hyperlegible, Segoe UI, sans-serif",
+    "axis": {
+      "labelColor": "#333333"
+    }
+  }
+}

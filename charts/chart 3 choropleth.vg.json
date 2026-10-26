@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Chart 8 (choropleth map): total esports prize money won by players from each country, all years to Oct 2026.",
+  "description": "Chart 3 (choropleth map): total esports prize money won by players from each country, all years to Oct 2026.",
   "width": 720,
   "height": 380,
   "projection": {

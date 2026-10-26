@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Chart 3 (bump chart): Twitch's top 10 video games by hours watched each year, 2020-2024. Non-game categories (e.g. Just Chatting, Music) removed. Focus games in colour.",
+  "description": "Chart 4 (bump chart): Twitch's top 10 video games by hours watched each year, 2020-2024. Non-game categories (e.g. Just Chatting, Music) removed. Focus games in colour.",
   "width": 520,
   "height": 320,
   "data": {
