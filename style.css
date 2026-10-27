@@ -138,3 +138,44 @@ h1, h2, h3 { font-family: var(--font-display); color: var(--ink); margin: 0; }
   .game-key-labels { display: none; }
   .chapter-head h2 { font-size: 1.8rem; }
 }
+
+/* ---------- Centering pass ---------- */
+:root { --text-col: 800px; }
+
+/* Slightly narrower page, so the left and right gaps are easier to see and compare */
+.page { max-width: 1400px; }
+
+/* All the text sits in one centred reading column (still left-aligned inside) */
+.hero > *,
+.contents,
+.chapter-head,
+.chapter > p,
+.figure > h3,
+.figure > p,
+.figure > .source,
+.takeaways > * {
+  max-width: var(--text-col);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Every chart is centred under its text, and can be wider than the text column */
+.chart {
+  display: flex;
+  justify-content: center;
+}
+
+/* On phones the charts are wider than the screen, so let them start from the left and scroll */
+@media (max-width: 760px) {
+  .chart { justify-content: flex-start; }
+}
+
+#beeswarm {
+  background: #FFFFFF;
+  padding: 20px 24px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
